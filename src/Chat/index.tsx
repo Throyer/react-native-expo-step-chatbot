@@ -1,12 +1,12 @@
 import React, { FC, useEffect } from 'react';
 import { FlatList } from 'react-native';
-import ChatBubble from '../components/ChatBubble';
-import Typing from '../components/Typing';
+import ChatBubble from './components/ChatBubble';
+import Typing from './components/Typing';
 import { useChat } from '../hook/chat';
 import { Container } from './styles';
 
 const Chat: FC = () => {
-    const { clear, enqueueMessage, typing, messages, step, ref } = useChat();
+    const { clear, enqueueMessage, typing, messages, content, ref } = useChat();
 
     useEffect(() => {
         enqueueMessage({
@@ -26,6 +26,7 @@ const Chat: FC = () => {
         });
 
         enqueueMessage({ content: 'Legal...' });
+
         clear();
     }, []);
 
@@ -39,8 +40,8 @@ const Chat: FC = () => {
                     <ChatBubble content={content} isBot={isBot} />
                 )}
             />
-            <Typing active={true} />
-            {step}
+            {typing && <Typing />}
+            {content}
         </Container>
     );
 };

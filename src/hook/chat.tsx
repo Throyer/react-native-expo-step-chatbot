@@ -3,6 +3,7 @@ import React, {
     FC,
     ReactNode,
     RefObject,
+    SetStateAction,
     useCallback,
     useContext,
     useEffect,
@@ -33,10 +34,10 @@ interface NewMessageProps {
 }
 
 interface ChatContextData {
-    step?: ReactNode;
+    content?: ReactNode;
     typing?: boolean;
     messages: Message[];
-    setContent: (content: ReactNode) => void;
+    setContent: SetStateAction<ReactNode>;
     clear: () => void;
     enqueueMessage: (newMessage: NewMessageProps) => void;
     scrollToEnd(): void;
@@ -47,7 +48,7 @@ const ChatContext = createContext<ChatContextData>({} as ChatContextData);
 
 const ChatProvider: FC = ({ children }) => {
     const [messages, setMessages] = useState<Message[]>([]);
-    const [step, setStep] = useState<ReactNode>();
+    const [content, setContent] = useState<ReactNode>();
     const [typing, setTyping] = useState(false);
 
     const [queue] = useState(() => {
@@ -97,10 +98,6 @@ const ChatProvider: FC = ({ children }) => {
         });
     }, []);
 
-    const setNewStep = useCallback((step: ReactNode) => {
-        setStep(step);
-    }, []);
-
     useEffect(() => {
         setTyping(false);
         scrollToEnd();
@@ -112,11 +109,11 @@ const ChatProvider: FC = ({ children }) => {
             value={{
                 enqueueMessage,
                 messages,
-                step,
+                content,
                 clear,
                 typing,
                 scrollToEnd,
-                setContent: setNewStep,
+                setContent,
                 ref,
             }}
         >

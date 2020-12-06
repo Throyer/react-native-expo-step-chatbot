@@ -33,7 +33,11 @@ export const TextWrapper = styled.View<BubbleStyleProps>`
     max-width: 271px;
     background-color: ${({ isBot }) => (isBot ? '#FFF' : '#7962f7')};
     border-radius: 8px;
-    border-bottom-right-radius: 0;
+
+    ${({ isBot }) =>
+        isBot
+            ? 'border-bottom-left-radius: 0'
+            : 'border-bottom-right-radius: 0'};
 
     ${Platform.OS === 'android'
         ? 'elevation: 2'
@@ -42,7 +46,7 @@ export const TextWrapper = styled.View<BubbleStyleProps>`
 
 export const ChatText = styled.Text<BubbleStyleProps>`
     margin: 8px 12px;
-    color: ${({ isBot }) => isBot ? '#424656' : '#FFF'};
+    color: ${({ isBot }) => (isBot ? '#424656' : '#FFF')};
     /* font-family: 'Inter-Regular'; */
     /* font-family: sans-serif; */
     font-size: 16px;

@@ -1,5 +1,5 @@
 import React, { FC, ReactNode } from 'react';
-import { BOT_AVATAR_IMAGE } from '../../utils/assets';
+import { BOT_AVATAR_IMAGE } from '../../../utils/assets';
 import {
     Avatar,
     AvatarWrapper,
